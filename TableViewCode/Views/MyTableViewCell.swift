@@ -39,12 +39,17 @@ class MyTableViewCell: UITableViewCell {
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: .default, reuseIdentifier: reuseIdentifier)
         setupStackView()
+        
+        setConstraints()
     }
     
     func setupStackView() {
-        self.addSubview(mainImageView)
-        self.addSubview(stackView)
+        // self.addSubview보다 self.contentView.addSubview로 잡는게 더 정확⭐️
+        // (cell은 기본뷰로 contentView를 가지고 있기 때문)
+        self.contentView.addSubview(mainImageView)
+        self.contentView.addSubview(stackView)
         
+        //스택 뷰 위에 레이블 올리기
         stackView.addArrangedSubview(movieNameLabel)
         stackView.addArrangedSubview(descriptionLabel)
     }
@@ -53,6 +58,28 @@ class MyTableViewCell: UITableViewCell {
         fatalError("init(coder:) has not been implemented")
     }
     
+    
+    func setConstraints() {
+        mainImageView.translatesAutoresizingMaskIntoConstraints = false
+        movieNameLabel.translatesAutoresizingMaskIntoConstraints = false
+        stackView.translatesAutoresizingMaskIntoConstraints = false
+        
+        NSLayoutConstraint.activate([
+            mainImageView.heightAnchor.constraint(equalToConstant: 100),
+            mainImageView.widthAnchor.constraint(equalToConstant: 100),
+            // (cell은 기본뷰로 contentView를 가지고 있기 때문)
+            mainImageView.leadingAnchor.constraint(equalTo: self.contentView.leadingAnchor, constant: 10),
+            mainImageView.centerYAnchor.constraint(equalTo: self.contentView.centerYAnchor),
+            
+            movieNameLabel.heightAnchor.constraint(equalToConstant: 22),
+            
+            stackView.leadingAnchor.constraint(equalTo: mainImageView.trailingAnchor, constant: 15),
+            stackView.trailingAnchor.constraint(equalTo: self.contentView.trailingAnchor),
+            stackView.topAnchor.constraint(equalTo: self.mainImageView.topAnchor),
+            stackView.bottomAnchor.constraint(equalTo: self.mainImageView.bottomAnchor)
+            
+        ])
+    }
     
 
 }

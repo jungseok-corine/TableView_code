@@ -83,7 +83,7 @@ extension ViewController: UITableViewDataSource {
         let cell = tableView.dequeueReusableCell(withIdentifier: "MovieCell", for: indexPath) as! MyTableViewCell
         
         cell.mainImageView.image = movieArray[indexPath.row].movieImage
-        cell.movieName.text = movieArray[indexPath.row].movieName
+        cell.movieNameLabel.text = movieArray[indexPath.row].movieName
         cell.descriptionLabel.text = movieArray[indexPath.row].movieDescription
         cell.selectionStyle = .none
         
@@ -99,5 +99,5 @@ extension ViewController: UITableViewDelegate {
         detailVC.movieData = movieArray[indexPath.row]
         show(detailVC, sender: nil)
     }
-    }
 }
+
